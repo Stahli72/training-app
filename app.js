@@ -1,7 +1,8 @@
 let exercises = [];
 
+// 🔥 Live-Sync aktiv
 function loadData() {
-    db.collection("training").get().then(snapshot => {
+    db.collection("training").onSnapshot(snapshot => {
         exercises = [];
         snapshot.forEach(doc => {
             exercises.push({ id: doc.id, text: doc.data().text });
@@ -10,6 +11,7 @@ function loadData() {
     });
 }
 
+// Anzeige der Liste
 function render() {
     let list = document.getElementById("list");
     list.innerHTML = "";
@@ -22,6 +24,7 @@ function render() {
     });
 }
 
+// Neue Übung hinzufügen
 function addExercise() {
     let input = document.getElementById("exercise");
 
@@ -29,16 +32,15 @@ function addExercise() {
 
     db.collection("training").add({
         text: input.value
-    }).then(() => {
-        input.value = "";
-        loadData();
     });
+
+    input.value = "";
 }
 
+// Übung löschen
 function removeExercise(id) {
-    db.collection("training").doc(id).delete().then(() => {
-        loadData();
-    });
+    db.collection("training").doc(id).delete();
 }
 
+// Start
 loadData();
