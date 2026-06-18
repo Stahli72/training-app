@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Meine Trainings App</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -13,8 +12,25 @@
 
 <ul id="list"></ul>
 
+<!-- Firebase (wichtig!) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAGMlYJBN_HWE3MsClurQ4W5Zqgp5UzHh4",
+    authDomain: "training-app-3394f.firebaseapp.com",
+    projectId: "training-app-3394f",
+    storageBucket: "training-app-3394f.firebasestorage.app",
+    messagingSenderId: "980378264700",
+    appId: "1:980378264700:web:d70063cd1bdd677fa715f9"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
 <script src="app.js"></script>
 
 </body>
 </html>
-``
