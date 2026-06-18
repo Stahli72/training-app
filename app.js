@@ -1,28 +1,44 @@
-let exercises = JSON.parse(localStorage.getItem("training")) || [];
+let exercises = [];
+
+function loadData() {
+    db.collection("training").get().then(snapshot => {
+        exercises = [];
+        snapshot.forEach(doc => {
+            exercises.push({ id: doc.id, text: doc.data().text });
+        });
+        render();
+    });
+}
 
 function render() {
     let list = document.getElementById("list");
     list.innerHTML = "";
 
-    exercises.forEach((ex, index) => {
+    exercises.forEach(ex => {
         let li = document.createElement("li");
-        li.innerHTML = ex + " <button onclick='removeExercise(" + index + ")'>X</button>";
+        li.innerHTML = ex.text +
+        " <button onclick='removeExercise(\"" + ex.id + "\")'>X</button>";
         list.appendChild(li);
     });
-
-    localStorage.setItem("training", JSON.stringify(exercises));
 }
 
 function addExercise() {
     let input = document.getElementById("exercise");
-    exercises.push(input.value);
-    input.value = "";
-    render();
+
+    if (input.value.trim() === "") return;
+
+    db.collection("training").add({
+        text: input.value
+    }).then(() => {
+        input.value = "";
+        loadData();
+    });
 }
 
-function removeExercise(index) {
-    exercises.splice(index, 1);
-    render();
+function removeExercise(id) {
+    db.collection("training").doc(id).delete().then(() => {
+        loadData();
+    });
 }
 
-render();
+loadData();
