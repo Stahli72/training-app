@@ -2,21 +2,15 @@
 <html>
 <head>
     <title>Meine Trainings App</title>
-
-    <!-- optional Styling -->
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1>Mein Training</h1>
 
-<!-- Fortschritt -->
 <p id="progress"></p>
 
-<!-- Eingabe -->
 <input id="exercise" placeholder="Übung eingeben">
 
-<!-- Trainings-Tag -->
 <select id="day">
   <option value="Push">Push</option>
   <option value="Pull">Pull</option>
@@ -24,6 +18,16 @@
 </select>
 
 <button onclick="addExercise()">Hinzufügen</button>
+
+<br><br>
+
+<!-- 🔍 FILTER -->
+<select id="filter" onchange="render()">
+  <option value="Alle">Alle</option>
+  <option value="Push">Push</option>
+  <option value="Pull">Pull</option>
+  <option value="Beine">Beine</option>
+</select>
 
 <ul id="list"></ul>
 
@@ -33,7 +37,7 @@
 
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyAGMlYJBN_HWE3MsClurQ4W5Zqgp5UzHh4",
+    apiKey: "AIzaSyAGMlYJBN_HWE3MsClurQ4W5UzHh4",
     authDomain: "training-app-3394f.firebaseapp.com",
     projectId: "training-app-3394f",
     storageBucket: "training-app-3394f.firebasestorage.app",
