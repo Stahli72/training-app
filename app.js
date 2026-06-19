@@ -66,7 +66,7 @@ function render() {
             }
 
             let button = document.createElement("button");
-            button.innerText = "X";
+           utton.innerHTML = '<i class="fa-solid fa-trash"></i>';
             button.onclick = function() {
                 removeExercise(ex.id);
             };
