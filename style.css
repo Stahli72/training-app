@@ -2,27 +2,30 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* ✅ verhindert seitliches Scrollen */
     font-family: 'Inter', sans-serif;
     background: linear-gradient(160deg, #121212, #1f1f2e);
     color: white;
-
-    overflow-x: hidden; /* ✅ verhindert seitliches Scrollen */
 }
 
 .container {
+    width: 100%;
     max-width: 500px;
     margin: auto;
-    padding: 15px;
+    padding: 10px;
 }
 
 input, select {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
     border-radius: 10px;
     border: none;
+    font-size: 14px;
 }
 
 /* ✅ Liste */
@@ -33,27 +36,33 @@ ul {
 }
 
 li {
+    width: 100%;
+    max-width: 100%;
+
     background: rgba(255,255,255,0.1);
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
     border-radius: 10px;
 
     display: flex;
     align-items: center;
-    gap: 10px;
 
-    width: 100%;              /* ✅ wichtig */
-    max-width: 100%;          /* ✅ verhindert Überlauf */
+    gap: 8px;
 
     touch-action: pan-y;
-    transition: transform 0.2s;
+
+    /* ✅ WICHTIG */
+    overflow: hidden;
 }
 
-/* ✅ Text darf umbrechen */
+/* ✅ FIX: Text darf schrumpfen */
 li span {
     flex: 1;
-    word-break: break-word;
+    min-width: 0;          /* ✅ DAS IST DER HAUPTFIX */
     font-size: 14px;
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 /* Checkbox */
@@ -67,7 +76,7 @@ li button {
     background: none;
     border: none;
     color: #ff4d4d;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -77,13 +86,12 @@ li button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     background: #00ffcc;
-    z-index: 1000;
 }
 
 /* Modal */
@@ -99,8 +107,6 @@ li button {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    z-index: 2000;
 }
 
 .hidden {
