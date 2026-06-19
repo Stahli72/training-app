@@ -1,6 +1,6 @@
 let exercises = [];
 
-// 🔥 Live-Sync aktiv
+// 🔥 Live-Sync
 function loadData() {
     db.collection("training").onSnapshot(snapshot => {
         exercises = [];
@@ -14,14 +14,10 @@ function loadData() {
             });
         });
 
-        // ✅ Nach Datum sortieren (neueste zuerst)
-        exercises.sort((a, b) => b.date.localeCompare(a.date));
-
         render();
     });
 }
 
-// Anzeige der Liste
 function render() {
     let list = document.getElementById("list");
     list.innerHTML = "";
@@ -30,20 +26,22 @@ function render() {
 
     let doneCount = 0;
     let visibleCount = 0;
-
     let currentDate = "";
 
     exercises
         .filter(ex => filter === "Alle" || ex.day === filter)
         .forEach(ex => {
 
-            // ✅ Neue Datum-Überschrift
+            // ✅ Datum als einfache Zeile (kein <h3>)
             if (ex.date !== currentDate) {
                 currentDate = ex.date;
 
-                let header = document.createElement("h3");
-                header.innerText = currentDate;
-                list.appendChild(header);
+                let dateLine = document.createElement("li");
+                dateLine.style.fontWeight = "bold";
+                dateLine.style.opacity = "0.7";
+                dateLine.innerText = currentDate;
+
+                list.appendChild(dateLine);
             }
 
             visibleCount++;
@@ -66,7 +64,7 @@ function render() {
             }
 
             let button = document.createElement("button");
-           utton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+            button.innerHTML = '<i class="fa-solid fa-trash"></i>';
             button.onclick = function() {
                 removeExercise(ex.id);
             };
@@ -78,17 +76,15 @@ function render() {
             list.appendChild(li);
         });
 
-    // 📊 Fortschritt
     let progress = document.getElementById("progress");
     if (progress) {
         progress.innerText = doneCount + " von " + visibleCount + " Übungen erledigt";
     }
 }
 
-// ✅ Datum erzeugen (Format: YYYY-MM-DD für richtige Sortierung)
+// Datum
 function getTodayDate() {
     let today = new Date();
-
     let year = today.getFullYear();
     let month = String(today.getMonth() + 1).padStart(2, '0');
     let day = String(today.getDate()).padStart(2, '0');
@@ -96,7 +92,7 @@ function getTodayDate() {
     return year + "-" + month + "-" + day;
 }
 
-// Neue Übung hinzufügen
+// Add
 function addExercise() {
     let input = document.getElementById("exercise");
     let day = document.getElementById("day").value;
@@ -113,14 +109,14 @@ function addExercise() {
     input.value = "";
 }
 
-// Status ändern
+// Toggle
 function toggleDone(id, newStatus) {
     db.collection("training").doc(id).update({
         done: newStatus
     });
 }
 
-// Übung löschen
+// Delete
 function removeExercise(id) {
     db.collection("training").doc(id).delete();
 }
