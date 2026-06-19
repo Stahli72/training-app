@@ -6,7 +6,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-x: hidden; /* verhindert seitliches scrollen */
+    overflow-x: hidden;
     font-family: 'Inter', sans-serif;
     background: linear-gradient(160deg, #121212, #1f1f2e);
     color: white;
@@ -37,8 +37,11 @@ ul {
     margin: 0;
 }
 
-/* ✅ LISTEN-EINTRÄGE */
+/* ✅ LISTEN-EINTRAG */
 li {
+    width: 100%;
+    max-width: 100%;
+
     background: rgba(255,255,255,0.1);
     padding: 12px;
     margin-bottom: 10px;
@@ -48,22 +51,21 @@ li {
     align-items: center;
     gap: 10px;
 
-    width: 100%;
-    max-width: 100%;
+    overflow: hidden;
 
-    overflow: hidden;         /* verhindert überlauf */
     touch-action: pan-y;
 }
 
-/* ✅ TEXT-BEREICH */
+/* ✅ DER WICHTIGSTE FIX */
 li span {
-    flex: 1;
-    min-width: 0;            /* WICHTIG: verhindert layout overflow */
+    flex: 1 1 0;        /* ✅ erlaubt schrumpfen */
+    min-width: 0;       /* ✅ verhindert overflow */
+
+    white-space: normal;   /* ✅ erlaubt Zeilenumbruch */
+    word-break: break-word;
+    overflow-wrap: break-word;
 
     font-size: 14px;
-
-    word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
 /* Checkbox */
@@ -93,7 +95,6 @@ li button {
     border: none;
     font-size: 24px;
     background: #00ffcc;
-    z-index: 1000;
 }
 
 /* Modal */
@@ -103,7 +104,6 @@ li button {
     left: 0;
     right: 0;
     bottom: 0;
-
     background: rgba(0,0,0,0.8);
 
     display: flex;
