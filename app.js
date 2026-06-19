@@ -21,42 +21,51 @@ function render() {
     let list = document.getElementById("list");
     list.innerHTML = "";
 
+    let filter = document.getElementById("filter").value;
+
     let doneCount = 0;
+    let visibleCount = 0;
 
-    exercises.forEach(ex => {
-        let li = document.createElement("li");
+    exercises
+        .filter(ex => filter === "Alle" || ex.day === filter)
+        .forEach(ex => {
+            visibleCount++;
 
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = ex.done;
-        checkbox.onclick = function() {
-            toggleDone(ex.id, !ex.done);
-        };
+            let li = document.createElement("li");
 
-        let text = document.createElement("span");
-        text.innerText = ex.text + " (" + ex.day + ")";
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = ex.done;
+            checkbox.onclick = function() {
+                toggleDone(ex.id, !ex.done);
+            };
 
-        if (ex.done) {
-            text.style.textDecoration = "line-through";
-            doneCount++;
-        }
+            let text = document.createElement("span");
+            text.innerText = ex.text + " (" + ex.day + ")";
 
-        let button = document.createElement("button");
-        button.innerText = "X";
-        button.onclick = function() {
-            removeExercise(ex.id);
-        };
+            if (ex.done) {
+                text.style.textDecoration = "line-through";
+                doneCount++;
+            }
 
-        li.appendChild(checkbox);
-        li.appendChild(text);
-        li.appendChild(button);
+            let button = document.createElement("button");
+            button.innerText = "X";
+            button.onclick = function() {
+                removeExercise(ex.id);
+            };
 
-        list.appendChild(li);
-    });
+            li.appendChild(checkbox);
+            li.appendChild(text);
+            li.appendChild(button);
 
-    // ✅ Fortschritt anzeigen
+            list.appendChild(li);
+        });
+
+    // 📊 Fortschritt
     let progress = document.getElementById("progress");
-    progress.innerText = doneCount + " von " + exercises.length + " Übungen erledigt";
+    if (progress) {
+        progress.innerText = doneCount + " von " + visibleCount + " Übungen erledigt";
+    }
 }
 
 // Neue Übung hinzufügen
