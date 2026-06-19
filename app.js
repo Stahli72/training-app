@@ -8,7 +8,8 @@ function loadData() {
             exercises.push({
                 id: doc.id,
                 text: doc.data().text,
-                done: doc.data().done || false
+                done: doc.data().done || false,
+                day: doc.data().day || "Allgemein"
             });
         });
         render();
@@ -19,6 +20,8 @@ function loadData() {
 function render() {
     let list = document.getElementById("list");
     list.innerHTML = "";
+
+    let doneCount = 0;
 
     exercises.forEach(ex => {
         let li = document.createElement("li");
@@ -31,10 +34,11 @@ function render() {
         };
 
         let text = document.createElement("span");
-        text.innerText = ex.text;
+        text.innerText = ex.text + " (" + ex.day + ")";
 
         if (ex.done) {
             text.style.textDecoration = "line-through";
+            doneCount++;
         }
 
         let button = document.createElement("button");
@@ -49,23 +53,29 @@ function render() {
 
         list.appendChild(li);
     });
+
+    // ✅ Fortschritt anzeigen
+    let progress = document.getElementById("progress");
+    progress.innerText = doneCount + " von " + exercises.length + " Übungen erledigt";
 }
 
 // Neue Übung hinzufügen
 function addExercise() {
     let input = document.getElementById("exercise");
+    let day = document.getElementById("day").value;
 
     if (input.value.trim() === "") return;
 
     db.collection("training").add({
         text: input.value,
-        done: false   // ✅ NEU
+        done: false,
+        day: day
     });
 
     input.value = "";
 }
 
-// ✅ NEU: Status ändern
+// Status ändern
 function toggleDone(id, newStatus) {
     db.collection("training").doc(id).update({
         done: newStatus
@@ -79,4 +89,3 @@ function removeExercise(id) {
 
 // Start
 loadData();
-``
