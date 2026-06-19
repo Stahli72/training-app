@@ -2,16 +2,10 @@
 <html>
 <head>
     <title>Meine Trainings App</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,56 +16,51 @@
 
     <p id="progress"></p>
 
-    <div class="card">
-
-        <div class="input-area">
-            <input id="exercise" placeholder="Neue Übung...">
-
-            <select id="day">
-                <option value="Push">Push</option>
-                <option value="Pull">Pull</option>
-                <option value="Beine">Beine</option>
-            </select>
-
-            <!-- ✅ NEU: Datum -->
-            <input type="date" id="date">
-        </div>
-
-        <div class="filter-area">
-            <select id="filter" onchange="render()">
-                <option value="Alle">Alle</option>
-                <option value="Push">Push</option>
-                <option value="Pull">Pull</option>
-                <option value="Beine">Beine</option>
-            </select>
-        </div>
-
-    </div>
+    <!-- ✅ Datum auswählen -->
+    <input type="date" id="selectedDate">
 
     <ul id="list"></ul>
 
 </div>
 
-<button class="fab" onclick="addExercise()">
+<!-- ✅ Floating Button -->
+<button class="fab" onclick="openModal()">
     <i class="fa-solid fa-plus"></i>
 </button>
+
+<!-- ✅ Popup -->
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+
+        <h2>Training hinzufügen</h2>
+
+        <input id="exercise" placeholder="Übung...">
+
+        <select id="day">
+            <option value="Push">Push</option>
+            <option value="Pull">Pull</option>
+            <option value="Beine">Beine</option>
+        </select>
+
+        <button onclick="addExercise()">Speichern</button>
+        <button onclick="closeModal()">Abbrechen</button>
+
+    </div>
+</div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSy",
-    authDomain: "training-app-3394f.firebaseapp.com",
-    projectId: "training-app-3394f",
-    storageBucket: "training-app-3394f.firebasestorage.app",
-    messagingSenderId: "980378264700",
-    appId: "1:980378264700:web:d70063cd1bdd677fa715f9"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSy",
+  authDomain: "training-app-3394f.firebaseapp.com",
+  projectId: "training-app-3394f",
+};
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 </script>
 
 <script src="app.js"></script>
