@@ -14,32 +14,29 @@ html, body {
 }
 
 .container {
-    width: 100%;
     max-width: 500px;
     margin: auto;
-    padding: 15px;
+    padding: 10px;
 }
 
-/* ✅ Inputs generell */
+/* Inputs allgemein */
 input, select {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
     border: none;
-    background: #2c2c3e;
-    color: white;
-
-    max-width: 100%; /* ✅ verhindert Abschneiden */
+    display: block;
+    max-width: 100%;
 }
 
-/* ✅ SPEZIELL für Datum (WICHTIGER FIX!) */
+/* ✅ DAS ist der eigentliche Fix */
 input[type="date"] {
     width: 100%;
     max-width: 100%;
 
-    font-size: 14px;   /* etwas kleiner = passt besser */
-    padding: 10px;
+    font-size: 16px;           /* ✅ verhindert mobile Zoom + Layout-Bug */
+    -webkit-appearance: none;  /* ✅ entfernt default mobile Verhalten */
 }
 
 /* Liste */
@@ -49,44 +46,37 @@ ul {
     margin: 0;
 }
 
-/* Listen-Einträge */
 li {
-    display: grid;
-    grid-template-columns: 35px 1fr 35px;
+    display: flex;
     align-items: center;
-
-    gap: 10px;
+    gap: 8px;
 
     width: 100%;
 
     background: rgba(255,255,255,0.1);
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 12px;
-
-    touch-action: pan-y;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 10px;
 }
 
 /* Text */
 li span {
+    flex: 1;
+    min-width: 0;
+
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 14px;
 }
 
 /* Checkbox */
 input[type="checkbox"] {
-    transform: scale(1.2);
+    flex-shrink: 0;
 }
 
-/* Delete Button */
+/* Button */
 li button {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    font-size: 18px;
-    cursor: pointer;
+    flex-shrink: 0;
 }
 
 /* Floating Button */
@@ -94,22 +84,18 @@ li button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     background: #00ffcc;
 }
 
 /* Modal */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
+    inset: 0;
     background: rgba(0,0,0,0.8);
 
     display: flex;
@@ -128,3 +114,4 @@ li button {
     width: 90%;
     max-width: 400px;
 }
+``
