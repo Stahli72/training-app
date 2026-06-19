@@ -19,24 +19,18 @@ html, body {
     padding: 10px;
 }
 
-/* Inputs allgemein */
+/* ✅ WICHTIG: Inputs bleiben schlicht (wie bei dir funktionierend) */
 input, select {
     width: 100%;
     padding: 10px;
     margin-bottom: 8px;
     border-radius: 8px;
     border: none;
-    display: block;
-    max-width: 100%;
 }
 
-/* ✅ DAS ist der eigentliche Fix */
+/* ✅ EINZIGER FIX: Datum kleiner darstellen */
 input[type="date"] {
-    width: 100%;
-    max-width: 100%;
-
-    font-size: 16px;           /* ✅ verhindert mobile Zoom + Layout-Bug */
-    -webkit-appearance: none;  /* ✅ entfernt default mobile Verhalten */
+    font-size: 14px;   /* 👉 damit passt es ins Layout */
 }
 
 /* Liste */
@@ -59,7 +53,7 @@ li {
     border-radius: 10px;
 }
 
-/* Text */
+/* ✅ Text stabil wie vorher */
 li span {
     flex: 1;
     min-width: 0;
@@ -114,4 +108,3 @@ li button {
     width: 90%;
     max-width: 400px;
 }
-``
