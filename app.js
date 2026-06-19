@@ -13,6 +13,10 @@ function loadData() {
                 date: doc.data().date || ""
             });
         });
+
+        // ✅ Nach Datum sortieren (neueste zuerst)
+        exercises.sort((a, b) => b.date.localeCompare(a.date));
+
         render();
     });
 }
@@ -27,9 +31,21 @@ function render() {
     let doneCount = 0;
     let visibleCount = 0;
 
+    let currentDate = "";
+
     exercises
         .filter(ex => filter === "Alle" || ex.day === filter)
         .forEach(ex => {
+
+            // ✅ Neue Datum-Überschrift
+            if (ex.date !== currentDate) {
+                currentDate = ex.date;
+
+                let header = document.createElement("h3");
+                header.innerText = currentDate;
+                list.appendChild(header);
+            }
+
             visibleCount++;
 
             let li = document.createElement("li");
@@ -42,9 +58,7 @@ function render() {
             };
 
             let text = document.createElement("span");
-
-            // ✅ Datum anzeigen
-            text.innerText = ex.text + " (" + ex.day + ") - " + ex.date;
+            text.innerText = ex.text + " (" + ex.day + ")";
 
             if (ex.done) {
                 text.style.textDecoration = "line-through";
@@ -71,15 +85,15 @@ function render() {
     }
 }
 
-// ✅ Datum erzeugen
+// ✅ Datum erzeugen (Format: YYYY-MM-DD für richtige Sortierung)
 function getTodayDate() {
     let today = new Date();
 
-    let day = String(today.getDate()).padStart(2, '0');
-    let month = String(today.getMonth() + 1).padStart(2, '0');
     let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, '0');
+    let day = String(today.getDate()).padStart(2, '0');
 
-    return day + "." + month + "." + year;
+    return year + "-" + month + "-" + day;
 }
 
 // Neue Übung hinzufügen
@@ -93,7 +107,7 @@ function addExercise() {
         text: input.value,
         done: false,
         day: day,
-        date: getTodayDate()   // ✅ NEU
+        date: getTodayDate()
     });
 
     input.value = "";
