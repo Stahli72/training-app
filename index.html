@@ -2,17 +2,31 @@
 <html>
 <head>
     <title>Meine Trainings App</title>
+
+    <!-- optional Styling -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1>Mein Training</h1>
 
+<!-- Fortschritt -->
+<p id="progress"></p>
+
+<!-- Eingabe -->
 <input id="exercise" placeholder="Übung eingeben">
+
+<!-- Trainings-Tag -->
+<select id="day">
+  <option value="Push">Push</option>
+  <option value="Pull">Pull</option>
+  <option value="Beine">Beine</option>
+</select>
+
 <button onclick="addExercise()">Hinzufügen</button>
 
 <ul id="list"></ul>
 
-<!-- Firebase (wichtig!) -->
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
