@@ -1,5 +1,6 @@
 let exercises = [];
 
+// ✅ Daten laden
 function loadData() {
     db.collection("training").onSnapshot(snapshot => {
         exercises = [];
@@ -8,115 +9,98 @@ function loadData() {
                 id: doc.id,
                 text: doc.data().text,
                 done: doc.data().done || false,
-                day: doc.data().day || "Allgemein",
-                date: doc.data().date || ""
+                day: doc.data().day,
+                date: doc.data().date
             });
         });
-
         render();
     });
 }
 
+// ✅ Render (zeigt nur ausgewählten Tag!)
 function render() {
-    let list = document.getElementById("list");
-    if (!list) return;
 
+    let list = document.getElementById("list");
     list.innerHTML = "";
 
-    let filter = document.getElementById("filter").value;
+    let selectedDate = document.getElementById("selectedDate").value;
 
-    let doneCount = 0;
-    let visibleCount = 0;
+    let filtered = exercises.filter(ex => ex.date === selectedDate);
 
-    exercises
-        .filter(ex => filter === "Alle" || ex.day === filter)
-        .forEach(ex => {
+    filtered.forEach(ex => {
 
-            visibleCount++;
+        let li = document.createElement("li");
 
-            let li = document.createElement("li");
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = ex.done;
+        checkbox.onclick = () => toggleDone(ex.id, !ex.done);
 
-            // Swipe
-            let startX = 0;
-            let currentX = 0;
+        let text = document.createElement("span");
+        text.innerText = ex.text + " (" + ex.day + ")";
 
-            li.addEventListener("touchstart", function(e) {
-                startX = e.touches[0].clientX;
-                currentX = startX;
-            });
+        if (ex.done) {
+            text.style.textDecoration = "line-through";
+        }
 
-            li.addEventListener("touchmove", function(e) {
-                currentX = e.touches[0].clientX;
-                let diff = currentX - startX;
+        let button = document.createElement("button");
+        button.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        button.onclick = () => removeExercise(ex.id);
 
-                if (diff < 0) {
-                    li.style.transform = "translateX(" + diff + "px)";
-                }
-            });
+        li.appendChild(checkbox);
+        li.appendChild(text);
+        li.appendChild(button);
 
-            li.addEventListener("touchend", function() {
-                let diff = currentX - startX;
-
-                if (diff < -60) {
-                    removeExercise(ex.id);
-                } else {
-                    li.style.transform = "translateX(0px)";
-                }
-            });
-
-            let checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = ex.done;
-            checkbox.onclick = () => toggleDone(ex.id, !ex.done);
-
-            let text = document.createElement("span");
-            text.innerText = ex.text + " (" + ex.day + ") - " + ex.date;
-
-            if (ex.done) {
-                text.style.textDecoration = "line-through";
-                doneCount++;
-            }
-
-            let button = document.createElement("button");
-            button.innerHTML = '<i class="fa-solid fa-trash"></i>';
-            button.onclick = () => removeExercise(ex.id);
-
-            li.appendChild(checkbox);
-            li.appendChild(text);
-            li.appendChild(button);
-
-            list.appendChild(li);
-        });
-
-    document.getElementById("progress").innerText =
-        doneCount + " von " + visibleCount + " erledigt";
+        list.appendChild(li);
+    });
 }
 
+// ✅ Modal öffnen
+function openModal() {
+    document.getElementById("modal").classList.remove("hidden");
+}
+
+// ✅ Modal schließen
+function closeModal() {
+    document.getElementById("modal").classList.add("hidden");
+}
+
+// ✅ Neue Übung
 function addExercise() {
     let input = document.getElementById("exercise");
     let day = document.getElementById("day").value;
-    let date = document.getElementById("date").value;
+    let date = document.getElementById("selectedDate").value;
 
-    if (input.value.trim() === "") return;
+    if (!date) {
+        alert("Bitte Datum wählen");
+        return;
+    }
 
     db.collection("training").add({
         text: input.value,
-        done: false,
         day: day,
+        done: false,
         date: date
     });
 
     input.value = "";
+    closeModal();
 }
 
-function toggleDone(id, newStatus) {
-    db.collection("training").doc(id).update({
-        done: newStatus
-    });
+// ✅ Toggle
+function toggleDone(id, status) {
+    db.collection("training").doc(id).update({ done: status });
 }
 
+// ✅ Delete
 function removeExercise(id) {
     db.collection("training").doc(id).delete();
 }
 
+// ✅ Datum ändern → neu rendern
+document.addEventListener("change", function(e) {
+    if (e.target.id === "selectedDate") render();
+});
+
+// Start
 loadData();
