@@ -8,58 +8,48 @@ html, body {
     width: 100%;
     overflow-x: hidden;
 
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(160deg, #121212, #1f1f2e);
+    font-family: Arial, sans-serif;
+    background: #1e1e2f;
     color: white;
 }
 
 .container {
     max-width: 500px;
     margin: auto;
-    padding: 10px;
+    padding: 15px;
 }
 
-/* Inputs allgemein */
+/* Inputs */
 input, select {
     width: 100%;
     padding: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     border-radius: 8px;
     border: none;
-    display: block;
-    max-width: 100%;
-}
-
-/* ✅ DAS ist der eigentliche Fix */
-input[type="date"] {
-    width: 100%;
-    max-width: 100%;
-
-    font-size: 16px;           /* ✅ verhindert mobile Zoom + Layout-Bug */
-    -webkit-appearance: none;  /* ✅ entfernt default mobile Verhalten */
 }
 
 /* Liste */
 ul {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
+/* ✅ STABILE ZEILE */
 li {
     display: flex;
     align-items: center;
-    gap: 8px;
 
+    gap: 10px;
     width: 100%;
 
-    background: rgba(255,255,255,0.1);
     padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+
+    background: #2c2c3e;
 }
 
-/* Text */
+/* ✅ TEXT BLEIBT IM FELD */
 li span {
     flex: 1;
     min-width: 0;
@@ -74,9 +64,13 @@ input[type="checkbox"] {
     flex-shrink: 0;
 }
 
-/* Button */
+/* Delete Button */
 li button {
     flex-shrink: 0;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
 }
 
 /* Floating Button */
@@ -84,12 +78,14 @@ li button {
     position: fixed;
     bottom: 20px;
     right: 20px;
+
     width: 60px;
     height: 60px;
     border-radius: 50%;
+
     border: none;
-    font-size: 20px;
     background: #00ffcc;
+    font-size: 20px;
 }
 
 /* Modal */
@@ -108,9 +104,9 @@ li button {
 }
 
 .modal-content {
-    background: #222;
+    background: #333;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     width: 90%;
     max-width: 400px;
 }
