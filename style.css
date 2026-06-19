@@ -1,14 +1,6 @@
-* {
-    box-sizing: border-box;
-}
-
-html, body {
+body {
     margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: #1e1e2f;
     color: white;
 }
@@ -16,16 +8,13 @@ html, body {
 .container {
     max-width: 500px;
     margin: auto;
-    padding: 15px;
+    padding: 10px;
 }
 
-/* Inputs */
 input, select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 8px;
-    border: none;
 }
 
 /* Liste */
@@ -34,58 +23,32 @@ ul {
     padding: 0;
 }
 
-/* ✅ STABILE ZEILE */
 li {
     display: flex;
     align-items: center;
-
     gap: 10px;
-    width: 100%;
-
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
 
     background: #2c2c3e;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-/* ✅ TEXT BLEIBT IM FELD */
+/* TEXT IMMER SICHTBAR */
 li span {
     flex: 1;
-    min-width: 0;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
-/* Checkbox */
-input[type="checkbox"] {
-    flex-shrink: 0;
-}
-
-/* Delete Button */
+/* BUTTON IMMER SICHTBAR */
 li button {
     flex-shrink: 0;
-    background: none;
-    border: none;
-    color: red;
-    font-size: 16px;
 }
 
-/* Floating Button */
 .fab {
     position: fixed;
     bottom: 20px;
     right: 20px;
-
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-
-    border: none;
-    background: #00ffcc;
-    font-size: 20px;
 }
 
 /* Modal */
@@ -104,9 +67,8 @@ li button {
 }
 
 .modal-content {
-    background: #333;
+    background: white;
+    color: black;
     padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
 }
+``
