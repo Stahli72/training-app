@@ -23,15 +23,29 @@ function render() {
     exercises.forEach(ex => {
         let li = document.createElement("li");
 
-        li.innerHTML = `
-            <input type="checkbox"
-                ${ex.done ? "checked" : ""}
-                onclick="toggleDone('${ex.id}', ${!ex.done})">
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = ex.done;
+        checkbox.onclick = function() {
+            toggleDone(ex.id, !ex.done);
+        };
 
-            ${ex.done ? "<s>" + ex.text + "</s>" : ex.text}
+        let text = document.createElement("span");
+        text.innerText = ex.text;
 
-            <button onclick="removeExercise('${ex.id}')">X</button>
-        `;
+        if (ex.done) {
+            text.style.textDecoration = "line-through";
+        }
+
+        let button = document.createElement("button");
+        button.innerText = "X";
+        button.onclick = function() {
+            removeExercise(ex.id);
+        };
+
+        li.appendChild(checkbox);
+        li.appendChild(text);
+        li.appendChild(button);
 
         list.appendChild(li);
     });
