@@ -7,6 +7,7 @@ html, body {
     padding: 0;
     width: 100%;
     overflow-x: hidden;
+
     font-family: 'Inter', sans-serif;
     background: linear-gradient(160deg, #121212, #1f1f2e);
     color: white;
@@ -37,8 +38,13 @@ ul {
     margin: 0;
 }
 
-/* ✅ LISTEN-EINTRAG */
+/* ✅ WICHTIG: GRID statt FLEX */
 li {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Checkbox | Text | Button */
+    align-items: center;
+    gap: 10px;
+
     width: 100%;
     max-width: 100%;
 
@@ -47,41 +53,32 @@ li {
     margin-bottom: 10px;
     border-radius: 12px;
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
     overflow: hidden;
-
     touch-action: pan-y;
 }
 
-/* ✅ DER WICHTIGSTE FIX */
+/* ✅ TEXT perfekt stabil */
 li span {
-    flex: 1 1 0;        /* ✅ erlaubt schrumpfen */
-    min-width: 0;       /* ✅ verhindert overflow */
+    min-width: 0;
 
-    white-space: normal;   /* ✅ erlaubt Zeilenumbruch */
     word-break: break-word;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
 
     font-size: 14px;
 }
 
-/* Checkbox */
+/* Checkbox fix */
 input[type="checkbox"] {
     transform: scale(1.2);
-    flex-shrink: 0;
 }
 
-/* Delete Button */
+/* Delete Button fix */
 li button {
     background: none;
     border: none;
     color: #ff4d4d;
     font-size: 16px;
     cursor: pointer;
-    flex-shrink: 0;
 }
 
 /* Floating Button */
@@ -104,6 +101,7 @@ li button {
     left: 0;
     right: 0;
     bottom: 0;
+
     background: rgba(0,0,0,0.8);
 
     display: flex;
