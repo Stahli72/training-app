@@ -16,13 +16,13 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* ✅ Datum jetzt perfekt */
-input[type="date"] {
+/* ✅ EINHEITLICHE FELDER */
+input, select {
     width: 100%;
     padding: 12px;
     margin-bottom: 12px;
 
-    border-radius: 10px;
+    border-radius: 12px;
     border: none;
 
     background: rgba(255,255,255,0.12);
@@ -30,7 +30,20 @@ input[type="date"] {
 
     font-size: 15px;
 
-    text-align: center; /* ✅ mittig */
+    height: 44px;           /* ✅ EINHEITLICHE HÖHE */
+    display: block;
+}
+
+/* ✅ DATUM exakt gleich wie andere Felder */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+
+    height: 44px;           /* ✅ gleiche Höhe erzwingen */
 }
 
 /* Liste */
@@ -39,10 +52,10 @@ ul {
     padding: 0;
 }
 
-/* ✅ Trainingskarten */
+/* ✅ TRAININGSKARTEN */
 li {
     display: flex;
-    align-items: center;          /* ✅ vertikal mittig */
+    align-items: center;
     justify-content: space-between;
 
     gap: 10px;
@@ -54,16 +67,16 @@ li {
     border-radius: 12px;
 }
 
-/* ✅ Checkbox links */
+/* Checkbox */
 input[type="checkbox"] {
     transform: scale(1.2);
 }
 
-/* ✅ Text jetzt sauber zentriert */
+/* ✅ TEXT schön mittig */
 li span {
     flex: 1;
+    text-align: center;
 
-    text-align: center;           /* ✅ horizontal mittig */
     font-size: 15px;
 
     overflow: hidden;
@@ -71,7 +84,7 @@ li span {
     white-space: nowrap;
 }
 
-/* ✅ Papierkorb ROT & schöner */
+/* ✅ PAPIERKORB korrekt rot */
 li button {
     background: none;
     border: none;
@@ -79,7 +92,7 @@ li button {
     font-size: 18px;
     cursor: pointer;
 
-    color: #ff3b3b;               /* ✅ echtes rot */
+    color: #ff3b3b;
 }
 
 /* Floating Button */
@@ -120,4 +133,3 @@ li button {
     padding: 20px;
     border-radius: 12px;
 }
-``
