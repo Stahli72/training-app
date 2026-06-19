@@ -5,35 +5,42 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Google Font für modernen Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+    style.css
 </head>
 <body>
 
 <div class="container">
 
-    <h1>💪 Mein Training</h1>
+    <h1>💪 My Gym</h1>
 
     <p id="progress"></p>
 
-    <div class="input-area">
-        <input id="exercise" placeholder="Übung eingeben">
+    <div class="card">
 
-        <select id="day">
-          <option value="Push">Push</option>
-          <option value="Pull">Pull</option>
-          <option value="Beine">Beine</option>
-        </select>
+        <div class="input-area">
+            <input id="exercise" placeholder="Übung hinzufügen...">
 
-        <button onclick="addExercise()">+</button>
-    </div>
+            <select id="day">
+              <option value="Push">Push</option>
+              <option value="Pull">Pull</option>
+              <option value="Beine">Beine</option>
+            </select>
 
-    <div class="filter-area">
-        <select id="filter" onchange="render()">
-          <option value="Alle">Alle</option>
-          <option value="Push">Push</option>
-          <option value="Pull">Pull</option>
-          <option value="Beine">Beine</option>
-        </select>
+            <button onclick="addExercise()">+</button>
+        </div>
+
+        <div class="filter-area">
+            <select id="filter" onchange="render()">
+              <option value="Alle">Alle</option>
+              <option value="Push">Push</option>
+              <option value="Pull">Pull</option>
+              <option value="Beine">Beine</option>
+            </select>
+        </div>
+
     </div>
 
     <ul id="list"></ul>
@@ -62,4 +69,3 @@
 
 </body>
 </html>
-``
