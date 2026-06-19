@@ -2,34 +2,43 @@
 <html>
 <head>
     <title>Meine Trainings App</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Mein Training</h1>
+<div class="container">
 
-<p id="progress"></p>
+    <h1>💪 Mein Training</h1>
 
-<input id="exercise" placeholder="Übung eingeben">
+    <p id="progress"></p>
 
-<select id="day">
-  <option value="Push">Push</option>
-  <option value="Pull">Pull</option>
-  <option value="Beine">Beine</option>
-</select>
+    <div class="input-area">
+        <input id="exercise" placeholder="Übung eingeben">
 
-<button onclick="addExercise()">Hinzufügen</button>
+        <select id="day">
+          <option value="Push">Push</option>
+          <option value="Pull">Pull</option>
+          <option value="Beine">Beine</option>
+        </select>
 
-<br><br>
+        <button onclick="addExercise()">+</button>
+    </div>
 
-<!-- 🔍 FILTER -->
-<select id="filter" onchange="render()">
-  <option value="Alle">Alle</option>
-  <option value="Push">Push</option>
-  <option value="Pull">Pull</option>
-  <option value="Beine">Beine</option>
-</select>
+    <div class="filter-area">
+        <select id="filter" onchange="render()">
+          <option value="Alle">Alle</option>
+          <option value="Push">Push</option>
+          <option value="Pull">Pull</option>
+          <option value="Beine">Beine</option>
+        </select>
+    </div>
 
-<ul id="list"></ul>
+    <ul id="list"></ul>
+
+</div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -37,7 +46,7 @@
 
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyAGMlYJBN_HWE3MsClurQ4W5UzHh4",
+    apiKey: "AIzaSyAGMlYJBN_HWE3MsClurQ4W5Zqgp5UzHh4",
     authDomain: "training-app-3394f.firebaseapp.com",
     projectId: "training-app-3394f",
     storageBucket: "training-app-3394f.firebasestorage.app",
@@ -53,3 +62,4 @@
 
 </body>
 </html>
+``
