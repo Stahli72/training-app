@@ -20,29 +20,20 @@ function loadData() {
 
 function render() {
     let list = document.getElementById("list");
+    if (!list) return;
+
     list.innerHTML = "";
 
-    let filter = document.getElementById("filter").value;
+    // ✅ SAFE FILTER (verhindert Crash)
+    let filterElement = document.getElementById("filter");
+    let filter = filterElement ? filterElement.value : "Alle";
 
     let doneCount = 0;
     let visibleCount = 0;
-    let currentDate = "";
 
     exercises
         .filter(ex => filter === "Alle" || ex.day === filter)
         .forEach(ex => {
-
-            // ✅ Datum als einfache Zeile (kein <h3>)
-            if (ex.date !== currentDate) {
-                currentDate = ex.date;
-
-                let dateLine = document.createElement("li");
-                dateLine.style.fontWeight = "bold";
-                dateLine.style.opacity = "0.7";
-                dateLine.innerText = currentDate;
-
-                list.appendChild(dateLine);
-            }
 
             visibleCount++;
 
@@ -95,7 +86,11 @@ function getTodayDate() {
 // Add
 function addExercise() {
     let input = document.getElementById("exercise");
-    let day = document.getElementById("day").value;
+    let dayElement = document.getElementById("day");
+
+    if (!input || !dayElement) return;
+
+    let day = dayElement.value;
 
     if (input.value.trim() === "") return;
 
