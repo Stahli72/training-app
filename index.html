@@ -1,41 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Meine Trainings App</title>
+    <title>Training App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-    <h1>💪 My Gym</h1>
+    <h2>Mein Training</h2>
 
-    <p id="progress"></p>
-
-    <!-- ✅ Datum auswählen -->
     <input type="date" id="selectedDate">
 
     <ul id="list"></ul>
 
 </div>
 
-<!-- ✅ Floating Button -->
-<button class="fab" onclick="openModal()">
-    <i class="fa-solid fa-plus"></i>
-</button>
+<button class="fab" onclick="openModal()">+</button>
 
-<!-- ✅ Popup -->
 <div id="modal" class="modal hidden">
     <div class="modal-content">
 
-        <h2>Training hinzufügen</h2>
-
-        <input id="exercise" placeholder="Übung...">
-
+        <input id="exercise" placeholder="Übung">
+        
         <select id="day">
             <option value="Push">Push</option>
             <option value="Pull">Pull</option>
@@ -48,7 +35,6 @@
     </div>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
@@ -56,7 +42,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSy",
   authDomain: "training-app-3394f.firebaseapp.com",
-  projectId: "training-app-3394f",
+  projectId: "training-app-3394f"
 };
 
 firebase.initializeApp(firebaseConfig);
