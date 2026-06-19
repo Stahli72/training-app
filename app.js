@@ -8,7 +8,8 @@ function loadData() {
                 id: doc.id,
                 text: doc.data().text,
                 done: doc.data().done || false,
-                day: doc.data().day || "Allgemein"
+                day: doc.data().day || "Allgemein",
+                date: doc.data().date || ""
             });
         });
 
@@ -22,8 +23,7 @@ function render() {
 
     list.innerHTML = "";
 
-    let filterElement = document.getElementById("filter");
-    let filter = filterElement ? filterElement.value : "Alle";
+    let filter = document.getElementById("filter").value;
 
     let doneCount = 0;
     let visibleCount = 0;
@@ -36,7 +36,7 @@ function render() {
 
             let li = document.createElement("li");
 
-            // ✅ SWIPE (stabil)
+            // Swipe
             let startX = 0;
             let currentX = 0;
 
@@ -51,8 +51,6 @@ function render() {
 
                 if (diff < 0) {
                     li.style.transform = "translateX(" + diff + "px)";
-                } else {
-                    li.style.transform = "translateX(0px)";
                 }
             });
 
@@ -60,10 +58,8 @@ function render() {
                 let diff = currentX - startX;
 
                 if (diff < -60) {
-                    // 👉 löschen
                     removeExercise(ex.id);
                 } else {
-                    // 👉 zurück
                     li.style.transform = "translateX(0px)";
                 }
             });
@@ -71,12 +67,10 @@ function render() {
             let checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.checked = ex.done;
-            checkbox.onclick = function() {
-                toggleDone(ex.id, !ex.done);
-            };
+            checkbox.onclick = () => toggleDone(ex.id, !ex.done);
 
             let text = document.createElement("span");
-            text.innerText = ex.text + " (" + ex.day + ")";
+            text.innerText = ex.text + " (" + ex.day + ") - " + ex.date;
 
             if (ex.done) {
                 text.style.textDecoration = "line-through";
@@ -85,9 +79,7 @@ function render() {
 
             let button = document.createElement("button");
             button.innerHTML = '<i class="fa-solid fa-trash"></i>';
-            button.onclick = function() {
-                removeExercise(ex.id);
-            };
+            button.onclick = () => removeExercise(ex.id);
 
             li.appendChild(checkbox);
             li.appendChild(text);
@@ -96,22 +88,22 @@ function render() {
             list.appendChild(li);
         });
 
-    let progress = document.getElementById("progress");
-    if (progress) {
-        progress.innerText = doneCount + " von " + visibleCount + " erledigt";
-    }
+    document.getElementById("progress").innerText =
+        doneCount + " von " + visibleCount + " erledigt";
 }
 
 function addExercise() {
     let input = document.getElementById("exercise");
     let day = document.getElementById("day").value;
+    let date = document.getElementById("date").value;
 
     if (input.value.trim() === "") return;
 
     db.collection("training").add({
         text: input.value,
         done: false,
-        day: day
+        day: day,
+        date: date
     });
 
     input.value = "";
