@@ -9,7 +9,8 @@ function loadData() {
                 id: doc.id,
                 text: doc.data().text,
                 done: doc.data().done || false,
-                day: doc.data().day || "Allgemein"
+                day: doc.data().day || "Allgemein",
+                date: doc.data().date || ""
             });
         });
         render();
@@ -41,7 +42,9 @@ function render() {
             };
 
             let text = document.createElement("span");
-            text.innerText = ex.text + " (" + ex.day + ")";
+
+            // ✅ Datum anzeigen
+            text.innerText = ex.text + " (" + ex.day + ") - " + ex.date;
 
             if (ex.done) {
                 text.style.textDecoration = "line-through";
@@ -68,6 +71,17 @@ function render() {
     }
 }
 
+// ✅ Datum erzeugen
+function getTodayDate() {
+    let today = new Date();
+
+    let day = String(today.getDate()).padStart(2, '0');
+    let month = String(today.getMonth() + 1).padStart(2, '0');
+    let year = today.getFullYear();
+
+    return day + "." + month + "." + year;
+}
+
 // Neue Übung hinzufügen
 function addExercise() {
     let input = document.getElementById("exercise");
@@ -78,7 +92,8 @@ function addExercise() {
     db.collection("training").add({
         text: input.value,
         done: false,
-        day: day
+        day: day,
+        date: getTodayDate()   // ✅ NEU
     });
 
     input.value = "";
