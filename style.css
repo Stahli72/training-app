@@ -13,7 +13,7 @@ body {
 
 input, select {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 10px;
     border-radius: 10px;
     border: none;
@@ -41,26 +41,30 @@ li {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     background: #00ffcc;
+    z-index: 1000;
 }
 
-/* Modal */
+/* ✅ Modal FIXED für Mobile */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.7);
+
+    background: rgba(0,0,0,0.8);
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    z-index: 2000;
 }
 
 .hidden {
@@ -71,5 +75,6 @@ li {
     background: #222;
     padding: 20px;
     border-radius: 15px;
-    width: 80%;
+    width: 90%;
+    max-width: 400px;
 }
