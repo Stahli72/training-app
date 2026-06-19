@@ -1,14 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background: linear-gradient(160deg, #121212, #1f1f2e);
     color: white;
+
+    overflow-x: hidden; /* ✅ verhindert seitliches Scrollen */
 }
 
 .container {
     max-width: 500px;
     margin: auto;
-    padding: 20px;
+    padding: 15px;
 }
 
 input, select {
@@ -19,10 +25,11 @@ input, select {
     border: none;
 }
 
-/* Liste */
+/* ✅ Liste */
 ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 li {
@@ -30,10 +37,39 @@ li {
     padding: 12px;
     margin-bottom: 10px;
     border-radius: 10px;
+
     display: flex;
+    align-items: center;
     gap: 10px;
 
+    width: 100%;              /* ✅ wichtig */
+    max-width: 100%;          /* ✅ verhindert Überlauf */
+
     touch-action: pan-y;
+    transition: transform 0.2s;
+}
+
+/* ✅ Text darf umbrechen */
+li span {
+    flex: 1;
+    word-break: break-word;
+    font-size: 14px;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    flex-shrink: 0;
+}
+
+/* Delete Button */
+li button {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 /* Floating Button */
@@ -50,7 +86,7 @@ li {
     z-index: 1000;
 }
 
-/* ✅ Modal FIXED für Mobile */
+/* Modal */
 .modal {
     position: fixed;
     top: 0;
