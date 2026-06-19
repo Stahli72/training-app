@@ -5,7 +5,11 @@ function loadData() {
     db.collection("training").onSnapshot(snapshot => {
         exercises = [];
         snapshot.forEach(doc => {
-            exercises.push({ id: doc.id, text: doc.data().text });
+            exercises.push({
+                id: doc.id,
+                text: doc.data().text,
+                done: doc.data().done || false
+            });
         });
         render();
     });
@@ -18,8 +22,17 @@ function render() {
 
     exercises.forEach(ex => {
         let li = document.createElement("li");
-        li.innerHTML = ex.text +
-        " <button onclick='removeExercise(\"" + ex.id + "\")'>X</button>";
+
+        li.innerHTML = `
+            <input type="checkbox"
+                ${ex.done ? "checked" : ""}
+                onclick="toggleDone('${ex.id}', ${!ex.done})">
+
+            ${ex.done ? "<s>" + ex.text + "</s>" : ex.text}
+
+            <button onclick="removeExercise('${ex.id}')">X</button>
+        `;
+
         list.appendChild(li);
     });
 }
@@ -31,10 +44,18 @@ function addExercise() {
     if (input.value.trim() === "") return;
 
     db.collection("training").add({
-        text: input.value
+        text: input.value,
+        done: false   // ✅ NEU
     });
 
     input.value = "";
+}
+
+// ✅ NEU: Status ändern
+function toggleDone(id, newStatus) {
+    db.collection("training").doc(id).update({
+        done: newStatus
+    });
 }
 
 // Übung löschen
@@ -44,3 +65,4 @@ function removeExercise(id) {
 
 // Start
 loadData();
+``
