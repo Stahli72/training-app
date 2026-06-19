@@ -3,120 +3,83 @@ let exercises = [];
 function loadData() {
     db.collection("training").onSnapshot(snapshot => {
         exercises = [];
+
         snapshot.forEach(doc => {
             exercises.push({
                 id: doc.id,
-                text: doc.data().text,
-                done: doc.data().done || false,
-                day: doc.data().day,
-                date: doc.data().date
+                text: doc.data().text || "",
+                day: doc.data().day || "",
+                date: doc.data().date || "",
+                done: doc.data().done || false
             });
         });
+
         render();
     });
 }
 
 function render() {
-
     let list = document.getElementById("list");
     list.innerHTML = "";
 
     let selectedDate = document.getElementById("selectedDate").value;
 
-    let filtered = exercises.filter(ex => ex.date === selectedDate);
+    exercises
+        .filter(e => e.date === selectedDate)
+        .forEach(e => {
 
-    filtered.forEach(ex => {
+            let li = document.createElement("li");
 
-        let li = document.createElement("li");
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = e.done;
 
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = ex.done;
-        checkbox.onclick = () => toggleDone(ex.id, !ex.done);
+            let text = document.createElement("span");
+            text.innerText = e.text + " (" + e.day + ")";
 
-        let text = document.createElement("span");
-        text.innerText = ex.text + " (" + ex.day + ")";
+            let button = document.createElement("button");
+            button.innerText = "X";
+            button.onclick = () => removeExercise(e.id);
 
-        if (ex.done) {
-            text.style.textDecoration = "line-through";
-        }
+            li.appendChild(checkbox);
+            li.appendChild(text);
+            li.appendChild(button);
 
-        let button = document.createElement("button");
-        button.innerHTML = '<i class="fa-solid fa-trash"></i>';
-        button.onclick = () => removeExercise(ex.id);
-
-        li.appendChild(checkbox);
-        li.appendChild(text);
-        li.appendChild(button);
-
-        list.appendChild(li);
-    });
+            list.appendChild(li);
+        });
 }
 
-// ✅ Modal öffnen (FIX für Handy)
 function openModal() {
-    let modal = document.getElementById("modal");
-    modal.classList.remove("hidden");
-
-    // 👉 Fokus auf Eingabefeld (wichtig fürs Handy)
-    setTimeout(() => {
-        document.getElementById("exercise").focus();
-    }, 200);
+    document.getElementById("modal").classList.remove("hidden");
 }
 
-// ✅ Modal schließen
 function closeModal() {
     document.getElementById("modal").classList.add("hidden");
 }
 
-// ✅ Heute als Standard setzen (wichtig!)
-function getToday() {
-    let today = new Date();
-    return today.toISOString().split("T")[0];
-}
-
-// ✅ Neue Übung
 function addExercise() {
+
     let input = document.getElementById("exercise");
     let day = document.getElementById("day").value;
-    let dateInput = document.getElementById("selectedDate");
+    let date = document.getElementById("selectedDate").value;
 
-    let date = dateInput.value || getToday(); // ✅ Fallback
-
-    if (input.value.trim() === "") return;
+    if (!date || input.value === "") return;
 
     db.collection("training").add({
         text: input.value,
         day: day,
-        done: false,
-        date: date
+        date: date,
+        done: false
     });
 
     input.value = "";
     closeModal();
 }
 
-// ✅ Toggle
-function toggleDone(id, status) {
-    db.collection("training").doc(id).update({ done: status });
-}
-
-// ✅ Delete
 function removeExercise(id) {
     db.collection("training").doc(id).delete();
 }
 
-// ✅ Datum ändern
-document.addEventListener("change", function(e) {
-    if (e.target.id === "selectedDate") render();
-});
+document.getElementById("selectedDate").addEventListener("change", render);
 
-// ✅ Start
-function init() {
-    let dateInput = document.getElementById("selectedDate");
-    dateInput.value = getToday(); // 👉 automatisch heute setzen
-
-    loadData();
-}
-
-init();
+loadData();
