@@ -20,7 +20,7 @@ html, body {
     padding: 15px;
 }
 
-/* Inputs */
+/* ✅ Inputs generell */
 input, select {
     width: 100%;
     padding: 12px;
@@ -29,6 +29,17 @@ input, select {
     border: none;
     background: #2c2c3e;
     color: white;
+
+    max-width: 100%; /* ✅ verhindert Abschneiden */
+}
+
+/* ✅ SPEZIELL für Datum (WICHTIGER FIX!) */
+input[type="date"] {
+    width: 100%;
+    max-width: 100%;
+
+    font-size: 14px;   /* etwas kleiner = passt besser */
+    padding: 10px;
 }
 
 /* Liste */
@@ -38,10 +49,10 @@ ul {
     margin: 0;
 }
 
-/* ✅ FIXE STRUKTUR wie am PC */
+/* Listen-Einträge */
 li {
     display: grid;
-    grid-template-columns: 35px 1fr 35px; /* Checkbox | Text | Button */
+    grid-template-columns: 35px 1fr 35px;
     align-items: center;
 
     gap: 10px;
@@ -56,11 +67,11 @@ li {
     touch-action: pan-y;
 }
 
-/* ✅ KEIN Chaos mehr */
+/* Text */
 li span {
     overflow: hidden;
-    text-overflow: ellipsis;   /* ✅ ... am Ende */
-    white-space: nowrap;       /* ✅ bleibt eine Zeile */
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 14px;
 }
 
