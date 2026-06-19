@@ -38,7 +38,7 @@ function render() {
             text.innerText = e.text + " (" + e.day + ")";
 
             let button = document.createElement("button");
-            button.innerText = "X";
+            button.innerHTML = "🗑";  // ✅ Papierkorb statt X
             button.onclick = () => removeExercise(e.id);
 
             li.appendChild(checkbox);
@@ -58,7 +58,6 @@ function closeModal() {
 }
 
 function addExercise() {
-
     let input = document.getElementById("exercise");
     let day = document.getElementById("day").value;
     let date = document.getElementById("selectedDate").value;
