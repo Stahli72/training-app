@@ -18,14 +18,12 @@ body {
 h1 {
     text-align: center;
     font-weight: 700;
-    margin-bottom: 10px;
 }
 
 #progress {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #00ffcc;
-    font-weight: 500;
 }
 
 /* Glas-Karte */
@@ -33,58 +31,29 @@ h1 {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     padding: 15px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     margin-bottom: 20px;
 }
 
-/* Eingabe */
+/* Inputs */
 .input-area {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
 }
 
-.input-area input {
-    flex: 1;
+input, select {
     padding: 12px;
     border-radius: 10px;
     border: none;
+    background: #2c2c3e;
+    color: white;
     outline: none;
-    background: #2c2c3e;
-    color: white;
-}
-
-.input-area select {
-    border-radius: 10px;
-    border: none;
-    padding: 10px;
-    background: #2c2c3e;
-    color: white;
-}
-
-.input-area button {
-    background: linear-gradient(135deg, #00ffcc, #00ccff);
-    border: none;
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.input-area button:hover {
-    transform: scale(1.1);
 }
 
 /* Filter */
-.filter-area select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #2c2c3e;
-    color: white;
+.filter-area {
+    margin-top: 10px;
 }
 
 /* Liste */
@@ -113,26 +82,42 @@ li:hover {
 /* Text */
 li span {
     flex: 1;
-    font-size: 15px;
 }
 
 /* Checkbox */
 input[type="checkbox"] {
     transform: scale(1.3);
+}
+
+/* Delete Button (Icon statt X) */
+li button {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-size: 16px;
     cursor: pointer;
 }
 
-/* Delete Button */
-li button {
-    background: rgba(255, 77, 77, 0.8);
+/* ✅ Floating Button */
+.fab {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+    background: linear-gradient(135deg, #00ffcc, #00ccff);
     border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    font-size: 22px;
+    color: black;
     cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     transition: 0.2s;
 }
 
-li button:hover {
-    background: red;
+.fab:hover {
+    transform: scale(1.1);
 }
