@@ -16,7 +16,7 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* ✅ EINHEITLICHE FELDER */
+/* ✅ ALLE FELDER GLEICH */
 input, select {
     width: 100%;
     padding: 12px;
@@ -30,20 +30,16 @@ input, select {
 
     font-size: 15px;
 
-    height: 44px;           /* ✅ EINHEITLICHE HÖHE */
-    display: block;
+    height: 44px; /* ✅ einheitliche Höhe */
 }
 
-/* ✅ DATUM exakt gleich wie andere Felder */
+/* ✅ Datum OHNE kaputte Browser-Tricks */
 input[type="date"] {
-    appearance: none;
-    -webkit-appearance: none;
+    height: 44px;        /* ✅ gleiche Höhe */
+    font-size: 15px;
+    padding: 12px;
 
-    text-align: center;
-    padding-left: 0;
-    padding-right: 0;
-
-    height: 44px;           /* ✅ gleiche Höhe erzwingen */
+    /* KEIN appearance hack mehr ❗ */
 }
 
 /* Liste */
@@ -52,7 +48,7 @@ ul {
     padding: 0;
 }
 
-/* ✅ TRAININGSKARTEN */
+/* Trainingskarten */
 li {
     display: flex;
     align-items: center;
@@ -72,7 +68,7 @@ input[type="checkbox"] {
     transform: scale(1.2);
 }
 
-/* ✅ TEXT schön mittig */
+/* Text sauber */
 li span {
     flex: 1;
     text-align: center;
@@ -84,7 +80,7 @@ li span {
     white-space: nowrap;
 }
 
-/* ✅ PAPIERKORB korrekt rot */
+/* Papierkorb schön rot */
 li button {
     background: none;
     border: none;
@@ -133,3 +129,4 @@ li button {
     padding: 20px;
     border-radius: 12px;
 }
+``
