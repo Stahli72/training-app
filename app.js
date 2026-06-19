@@ -1,6 +1,5 @@
 let exercises = [];
 
-// ✅ Daten laden
 function loadData() {
     db.collection("training").onSnapshot(snapshot => {
         exercises = [];
@@ -17,7 +16,6 @@ function loadData() {
     });
 }
 
-// ✅ Render (zeigt nur ausgewählten Tag!)
 function render() {
 
     let list = document.getElementById("list");
@@ -55,9 +53,15 @@ function render() {
     });
 }
 
-// ✅ Modal öffnen
+// ✅ Modal öffnen (FIX für Handy)
 function openModal() {
-    document.getElementById("modal").classList.remove("hidden");
+    let modal = document.getElementById("modal");
+    modal.classList.remove("hidden");
+
+    // 👉 Fokus auf Eingabefeld (wichtig fürs Handy)
+    setTimeout(() => {
+        document.getElementById("exercise").focus();
+    }, 200);
 }
 
 // ✅ Modal schließen
@@ -65,16 +69,21 @@ function closeModal() {
     document.getElementById("modal").classList.add("hidden");
 }
 
+// ✅ Heute als Standard setzen (wichtig!)
+function getToday() {
+    let today = new Date();
+    return today.toISOString().split("T")[0];
+}
+
 // ✅ Neue Übung
 function addExercise() {
     let input = document.getElementById("exercise");
     let day = document.getElementById("day").value;
-    let date = document.getElementById("selectedDate").value;
+    let dateInput = document.getElementById("selectedDate");
 
-    if (!date) {
-        alert("Bitte Datum wählen");
-        return;
-    }
+    let date = dateInput.value || getToday(); // ✅ Fallback
+
+    if (input.value.trim() === "") return;
 
     db.collection("training").add({
         text: input.value,
@@ -97,10 +106,17 @@ function removeExercise(id) {
     db.collection("training").doc(id).delete();
 }
 
-// ✅ Datum ändern → neu rendern
+// ✅ Datum ändern
 document.addEventListener("change", function(e) {
     if (e.target.id === "selectedDate") render();
 });
 
-// Start
-loadData();
+// ✅ Start
+function init() {
+    let dateInput = document.getElementById("selectedDate");
+    dateInput.value = getToday(); // 👉 automatisch heute setzen
+
+    loadData();
+}
+
+init();
