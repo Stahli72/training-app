@@ -22,7 +22,8 @@ function render() {
 
     list.innerHTML = "";
 
-    let filter = document.getElementById("filter").value;
+    let filterElement = document.getElementById("filter");
+    let filter = filterElement ? filterElement.value : "Alle";
 
     let doneCount = 0;
     let visibleCount = 0;
@@ -35,36 +36,44 @@ function render() {
 
             let li = document.createElement("li");
 
+            // ✅ SWIPE (stabil)
             let startX = 0;
             let currentX = 0;
 
-            li.addEventListener("touchstart", (e) => {
+            li.addEventListener("touchstart", function(e) {
                 startX = e.touches[0].clientX;
+                currentX = startX;
             });
 
-            li.addEventListener("touchmove", (e) => {
+            li.addEventListener("touchmove", function(e) {
                 currentX = e.touches[0].clientX;
                 let diff = currentX - startX;
 
                 if (diff < 0) {
-                    li.style.transform = `translateX(${diff}px)`;
+                    li.style.transform = "translateX(" + diff + "px)";
+                } else {
+                    li.style.transform = "translateX(0px)";
                 }
             });
 
-            li.addEventListener("touchend", () => {
+            li.addEventListener("touchend", function() {
                 let diff = currentX - startX;
 
-                if (diff < -80) {
+                if (diff < -60) {
+                    // 👉 löschen
                     removeExercise(ex.id);
                 } else {
-                    li.style.transform = "translateX(0)";
+                    // 👉 zurück
+                    li.style.transform = "translateX(0px)";
                 }
             });
 
             let checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.checked = ex.done;
-            checkbox.onclick = () => toggleDone(ex.id, !ex.done);
+            checkbox.onclick = function() {
+                toggleDone(ex.id, !ex.done);
+            };
 
             let text = document.createElement("span");
             text.innerText = ex.text + " (" + ex.day + ")";
@@ -76,7 +85,9 @@ function render() {
 
             let button = document.createElement("button");
             button.innerHTML = '<i class="fa-solid fa-trash"></i>';
-            button.onclick = () => removeExercise(ex.id);
+            button.onclick = function() {
+                removeExercise(ex.id);
+            };
 
             li.appendChild(checkbox);
             li.appendChild(text);
@@ -85,8 +96,10 @@ function render() {
             list.appendChild(li);
         });
 
-    document.getElementById("progress").innerText =
-        doneCount + " von " + visibleCount + " erledigt";
+    let progress = document.getElementById("progress");
+    if (progress) {
+        progress.innerText = doneCount + " von " + visibleCount + " erledigt";
+    }
 }
 
 function addExercise() {
